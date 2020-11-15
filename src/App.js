@@ -1,11 +1,9 @@
 import logo from "./logo.svg";
 import "./App.css";
-
-import Grid from "./components/Grid/";
-
+import Grid from "./components/Grid";
 function App() {
   return (
-    <div className="App">
+    <div>
       <Grid />
     </div>
   );

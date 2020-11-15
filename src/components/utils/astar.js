@@ -22,7 +22,7 @@ const traverse = ({ grid, start, end, maxRow, maxCol }) => {
       maxCol
     );
     neighbours.forEach((node) => {
-      updateDistance(node, current);
+      updateDistance(node, current, endNode);
     });
     queue = [...neighbours, ...queue];
     queue.sort((a, b) => a.distance - b.distance);
@@ -61,11 +61,20 @@ const findNeighbours = (row, col, grid, maxRow, maxCol) => {
   return ans;
 };
 
-const updateDistance = (node, current) => {
-  if (node.distance > current.distance + 1) {
-    node.distance = current.distance + 1;
+const updateDistance = (node, current, endNode) => {
+  let possibleDistance =
+    current.distance + 1 + calculateHeuristicDistance(node, endNode);
+  if (node.distance > possibleDistance) {
+    node.distance = possibleDistance;
     node["via"] = current;
   }
+};
+
+const calculateHeuristicDistance = (start, end) => {
+  let xDif = end.col - start.col;
+  let yDif = end.row - start.row;
+  let fullDiff = Math.sqrt(xDif * xDif + yDif * yDif);
+  return fullDiff * fullDiff; //Increase distance to fisualize A* property better
 };
 
 const constructPath = ({ grid, end, start }) => {

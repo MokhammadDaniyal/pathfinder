@@ -21,7 +21,7 @@ const Cell = ({
         isPath,
         isWall,
       })}`}
-      onMouseOver={() => {
+      onMouseEnter={() => {
         if (isMouseDown) setCellAsWall({ row, col });
       }}
       onClick={() => {

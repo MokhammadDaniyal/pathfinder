@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import Cell from "../Cell";
 import "./Grid.css";
 
+import SideBar from "../SideBar";
+
 import dijkstra from "../utils/dijkstra";
+import astar from "../utils/astar";
 
 const MAX_COL = 30;
 const MAX_ROW = 15;
@@ -125,6 +128,24 @@ const Grid = () => {
     });
   };
 
+  const visualizeAStart = () => {
+    const { visitOrder, path } = astar.traverse({
+      start: start,
+      grid: grid,
+      end: end,
+      maxRow: MAX_ROW,
+      maxCol: MAX_COL,
+    });
+
+    animateVisits(visitOrder, grid, () => {
+      if (path.length == 0) {
+        // alert("no Path");
+      } else {
+        animatePath(path);
+      }
+    });
+  };
+
   const animatePath = (path) => {
     path.forEach((node, i) => {
       setTimeout(() => {
@@ -137,27 +158,42 @@ const Grid = () => {
   };
 
   return (
-    <div
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <h1>
-        The platform is under development. Come back later for better more
-        algorithms and improved UI.
-      </h1>
-      <h3>Hold Left mouse button and hover over grid to create a wall.</h3>
-      <button
-        onClick={() => {
-          visualizeDijkstra();
+    <div className="container">
+      <SideBar>
+        <button
+          className="visualize-button"
+          onClick={() => {
+            visualizeDijkstra();
+          }}
+        >
+          Visiualise dijkstra
+        </button>
+
+        <button
+          className="visualize-button"
+          onClick={() => {
+            visualizeAStart();
+          }}
+        >
+          Visiualise A*
+        </button>
+      </SideBar>
+
+      <div
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        Visiualise dijkstra
-      </button>
-      {renderGrid(grid, isMouseDown)}
+        <h1>
+          The platform is under development. Come back later for better more
+          algorithms and improved UI.
+        </h1>
+        <h3>Hold Left mouse button and hover over grid to create a wall.</h3>
+        {renderGrid(grid, isMouseDown)}
+      </div>
     </div>
   );
 };
