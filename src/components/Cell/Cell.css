@@ -1,0 +1,57 @@
+.cell {
+  width: 20px;
+  height: 20px;
+  border: #bbbbbb 1px solid;
+  margin: 1px;
+  border-radius: 5px;
+}
+
+.visited {
+  background-color: aquamarine;
+}
+
+.start {
+  background-color: red;
+}
+.end {
+  background-color: green;
+}
+
+.wall {
+  background-color: #163c66;
+}
+
+.visited {
+  animation: bgchange 0.5s ease-in forwards;
+}
+
+@keyframes bgchange {
+  0% {
+    transform: scale(0.3);
+    border-radius: 50%;
+    background: #bbbbbb;
+  }
+  50% {
+    background: #dafb8c;
+  }
+  100% {
+    transform: scale(1);
+    border-radius: 5px;
+    background: #5ecac4;
+  }
+}
+
+.path-node {
+  animation: pathAnim 0.2s ease-in forwards;
+}
+
+@keyframes pathAnim {
+  0% {
+    transform: scale(0.3);
+    background: aqua;
+  }
+  100% {
+    transform: scale(1);
+    background: yellow;
+  }
+}
