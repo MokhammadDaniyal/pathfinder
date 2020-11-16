@@ -10,7 +10,7 @@ import astar from "../utils/astar";
 const MAX_COL = 30;
 const MAX_ROW = 15;
 const START = [5, 5];
-const END = [10, 15];
+const END = [5, 25];
 const initGrid = (setStart, setCellAsWall) => {
   let i = 0;
 
@@ -136,7 +136,7 @@ const Grid = () => {
       maxRow: MAX_ROW,
       maxCol: MAX_COL,
     });
-
+    console.log(visitOrder);
     animateVisits(visitOrder, grid, () => {
       if (path.length == 0) {
         // alert("no Path");

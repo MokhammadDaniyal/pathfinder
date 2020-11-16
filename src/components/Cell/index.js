@@ -11,6 +11,7 @@ const Cell = ({
   isMouseDown,
   setCellAsWall,
   isWall,
+  heuristic,
 }) => {
   return (
     <div
@@ -31,7 +32,9 @@ const Cell = ({
       onMouseUp={() => {
         // setIsMouseDown(false);
       }}
-    ></div>
+    >
+      {/* {heuristic} */}
+    </div>
   );
 };
 const selectColor = ({ isStart, isEnd, shouldAnimate, isPath, isWall }) => {

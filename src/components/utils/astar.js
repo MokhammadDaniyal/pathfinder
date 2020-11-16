@@ -1,8 +1,9 @@
 const traverse = ({ grid, start, end, maxRow, maxCol }) => {
   let current = grid[start[0]][start[1]];
-  current.distance = 0;
 
   let endNode = grid[end[0]][end[1]];
+  current.heuristic = calculateHeuristicDistance(current, endNode);
+  current.distance = 0;
   let queue = [current];
   const visitOrder = [];
 
@@ -25,7 +26,7 @@ const traverse = ({ grid, start, end, maxRow, maxCol }) => {
       updateDistance(node, current, endNode);
     });
     queue = [...neighbours, ...queue];
-    queue.sort((a, b) => a.distance - b.distance);
+    queue.sort((a, b) => a.heuristic - b.heuristic);
     current.isVisited = true;
     visitOrder.push(current);
   }
@@ -62,10 +63,9 @@ const findNeighbours = (row, col, grid, maxRow, maxCol) => {
 };
 
 const updateDistance = (node, current, endNode) => {
-  let possibleDistance =
-    current.distance + 1 + calculateHeuristicDistance(node, endNode);
-  if (node.distance > possibleDistance) {
-    node.distance = possibleDistance;
+  if (node.distance > current.distance + 1) {
+    node.distance = current.distance + 1;
+    node.heuristic = node.distance + calculateHeuristicDistance(node, endNode);
     node["via"] = current;
   }
 };
@@ -74,7 +74,7 @@ const calculateHeuristicDistance = (start, end) => {
   let xDif = end.col - start.col;
   let yDif = end.row - start.row;
   let fullDiff = Math.sqrt(xDif * xDif + yDif * yDif);
-  return fullDiff * fullDiff; //Increase distance to fisualize A* property better
+  return fullDiff;
 };
 
 const constructPath = ({ grid, end, start }) => {
