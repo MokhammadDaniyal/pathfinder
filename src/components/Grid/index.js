@@ -128,7 +128,7 @@ const Grid = () => {
     });
   };
 
-  const visualizeAStart = () => {
+  const visualizeAStar = () => {
     const { visitOrder, path } = astar.traverse({
       start: start,
       grid: grid,
@@ -159,25 +159,10 @@ const Grid = () => {
 
   return (
     <div className="container">
-      <SideBar>
-        <button
-          className="visualize-button"
-          onClick={() => {
-            visualizeDijkstra();
-          }}
-        >
-          Visiualise dijkstra
-        </button>
-
-        <button
-          className="visualize-button"
-          onClick={() => {
-            visualizeAStart();
-          }}
-        >
-          Visiualise A*
-        </button>
-      </SideBar>
+      <SideBar
+        visualizeDijkstra={visualizeDijkstra}
+        visualizeAStar={visualizeAStar}
+      ></SideBar>
 
       <div
         style={{
